@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="jquery-2.1.4.min.js"></script>
+    <style>
+        .grid{
+            border: black 3px solid;
+            display: inline-flex;
+            flex-direction: row;
+            flex-wrap：wrap;
+            justify-content: center;
+            align-items: center;
+            align-content: center;
+            height: 25px;
+            margin: 2px;
+        }
+        main{text-align: center;}
+    </style>
+</head>
+<body>
+    <main>
+        <label for="">要</label>
+        <input type="button" value="生成">
+        <input type="text" name="long">
+        <label for="">*</label>
+        <input type="text" name="width">
+        <label for="">个格子</label>
+    </main>
+    <script>
+        $(document).ready(
+                function(){
+                    var createGrid=function(ele){
+                        var $html = '<b class="grid"></b>';
+                        ele.append($html);
+                    }
+                    $("input[value='生成']").click(
+                            function () {
+                                var $long = $("input[name='long']").val();
+                                var $width = $("input[name='width']").val();
+                                var $row,$col,$count=1;
+                                var $main = $('main');
+                                $main.empty();
+                                for($row=0;$row<$width;$row++){
+                                    for($col=0;$col<$long;$col++){
+                                        createGrid($main);
+                                    }
+                                    $main.append('</br>');
+                                }
+                                $('.grid').each(
+                                        function(){
+                                            $that=$(this);
+                                            $that.append($count);
+                                            $count = $count + 1;
+                                        }
+                                )
+                            })
+                    $('main').delegate('.grid','click',function(){
+                        var $vaule=$(this).text();
+                        console.log($vaule);
+                    })
+                }
+        )
+    </script>
+</body>
+</html>
